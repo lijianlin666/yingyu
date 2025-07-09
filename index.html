@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>英语单词库</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css?v=1.8">
+</head>
+<body>
+    <!-- 英语字母背景装饰 -->
+    <div class="cyrillic-bg bg-1">A</div>
+    <div class="cyrillic-bg bg-2">Z</div>
+    
+    <!-- 顶部导航栏 - 修改为毛玻璃效果并移除图标 -->
+    <div class="top-nav">
+        <!-- 左上角按钮 -->
+        <div class="nav-left">
+            <button class="nav-btn">
+                <span>英语学习助手</span>
+            </button>
+        </div>
+        
+        <!-- 右上角按钮 -->
+        <div class="nav-right">
+            <button class="nav-btn">
+                <span>英语素材库</span>
+            </button>
+            <button class="nav-btn">
+                <span>意见反馈</span>
+            </button>
+            <button class="nav-btn">
+                <span>添加桌面</span>
+            </button>
+            <div class="avatar">
+                E
+            </div>
+        </div>
+    </div>
+    
+    <!-- 控制面板 -->
+    <div class="control-panel" id="controlPanel">
+        <div class="toggle-container">
+            <label class="toggle-label">朗读单词</label>
+            <label class="switch">
+                <input type="checkbox" id="speakToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-container">
+            <label class="toggle-label">对错音效</label>
+            <label class="switch">
+                <input type="checkbox" id="soundToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+    
+    <!-- 这里原本有登录页面的代码，现已移除 -->
+
+    <div class="container">
+        <!-- 一级页面：级别选择 -->
+        <div class="level-selection" id="levelSelection">
+            <div class="level-selection-header">
+                <h1>英语单词库</h1>
+            </div>
+            
+            <div class="app-description">
+                <p><i class="fas fa-lightbulb"></i> 学习模式：根据中文提示输入英语单词，系统自动检查正确性</p>
+                <p>每个单词自动朗读，提交答案后有音效反馈</p>
+            </div>
+            
+            <!-- 分类按钮组 - 恢复动态生成 -->
+            <div class="categories-container">
+                <!-- 场景分类 -->
+                <div class="category-group">
+                    <h3>场景分类</h3>
+                    <div class="category-buttons" id="sceneCategoryButtons"></div>
+                </div>
+                
+                <!-- 级别分类 -->
+                <div class="category-group">
+                    <h3>级别分类</h3>
+                    <div class="category-buttons" id="levelCategoryButtons"></div>
+                </div>
+                
+                <!-- 词书分类 -->
+                <div class="category-group">
+                    <h3>词书分类</h3>
+                    <div class="category-buttons" id="bookCategoryButtons"></div>
+                </div>
+            </div>
+            
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="loader"></div>
+                <p>正在加载单词数据，请稍候...</p>
+            </div>
+            
+            <div class="app-footer">
+                <p>© 2025 英语学习助手 | 数据来自英语学习资源</p>
+            </div>
+        </div>
+
+        <!-- 新增：单词展示页面 -->
+        <div class="word-showcase-page" id="wordShowcasePage" style="display:none;">
+            <div class="showcase-header">
+                <div class="showcase-header-left">
+                    <button class="showcase-back-btn" id="showcaseBackBtn"><i class="fas fa-arrow-left"></i> 返回</button>
+                </div>
+                <div class="showcase-header-center">
+                    <span class="showcase-title" id="showcaseTitle"></span>
+                </div>
+                <div class="showcase-header-right">
+                    <button class="showcase-start-btn" id="startLearningBtn">开始学习</button>
+                </div>
+            </div>
+            <div class="word-cards-container" id="wordCardsContainer"></div>
+        </div>
+
+        <!-- 三级页面：单词学习 -->
+        <div class="word-learning" id="wordLearning">
+            <div class="learning-content">
+                <div class="header">
+                    <button class="back-button" id="backButton">
+                        <i class="fas fa-arrow-left"></i> 返回
+                    </button>
+                    <div class="level-title" id="levelTitle">英语四级</div>
+                    <div style="width: 90px;"></div> <!-- 占位元素 -->
+                </div>
+                <div class="word-card">
+                    <div class="word-header">
+                        <div class="audio-controls">
+                            <button class="audio-btn disabled" id="speakButton"> <!-- 默认添加disabled类 -->
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                        </div>
+                        <div class="chinese-word" id="chineseWord">大学生</div>
+                    </div>
+                    <div class="input-container">
+                        <button class="confirm-button" id="confirmButton">确认</button>
+                        <input type="text" class="russian-input" id="russianInput" autocomplete="off" placeholder="请输入英语单词">
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                </div>
+                <div class="controls">
+                    <button class="control-button" id="prevButton">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="control-button" id="nextButton">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-text"><span id="progressText">1/20</span></div>
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
+                    </div>
+                </div>
+                <div class="handwriting-hint">
+                    手写笔手写：IPad：打开随手写，切换成当前语种；其他品牌尝试切换系统语言到当前语种（华为不支持）
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 禁止双指缩放
+    document.addEventListener('touchstart', function (event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    // 禁止双击缩放
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+    </script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
